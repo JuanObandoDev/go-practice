@@ -117,4 +117,16 @@ func main() {
 
 	// print task list
 	myTaskList.print()
+
+	// creating maps
+	taskMap := make(map[string]*taskList)
+	taskMap["myTaskList"] = &myTaskList
+
+	myTask3 := task{"My Task 3", "My Task Description 3", false}
+	myTask4 := task{"My Task 4", "My Task Description 4", false}
+	myTaskList2 := taskList{tasks: []*task{&myTask3, &myTask4}}
+	taskMap["myTaskList2"] = &myTaskList2
+
+	taskMap["myTaskList"].print()
+	taskMap["myTaskList2"].print()
 }

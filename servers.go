@@ -32,14 +32,20 @@ func main() {
 		"http://www.stackoverflow.com",
 	}
 
-	// loop through servers
-	for _, server := range servers {
-		// implementing goroutine
-		go checkServer(server, ch)
+	// for while loop
+	i := 0
+	for i < 3 {
+		// loop through servers
+		for _, server := range servers {
+			// implementing goroutine
+			go checkServer(server, ch)
+		}
 
 		// receiving data from channel
 		fmt.Println(<-ch)
+		i++
 	}
+
 	finish := time.Since(start)
 	fmt.Printf("Time taken: %s", finish)
 }

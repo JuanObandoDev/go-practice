@@ -6,19 +6,24 @@ import (
 	"time"
 )
 
-// validae server status
-func checkServer(server string) {
+// validate server status
+func checkServer(server string, ch chan string) {
 	_, err := http.Get(server)
 	if err != nil {
-		fmt.Println("Server", server, "is down!")
+		// adding data to channel
+		ch <- server + " is down!"
 	} else {
-		fmt.Println("Server", server, "is up and running!")
+		// adding data to channel
+		ch <- server + " is up and running!"
 	}
 }
 
 func main() {
 	// timer
 	start := time.Now()
+
+	// channels
+	ch := make(chan string)
 
 	// slice of servers
 	servers := []string{
@@ -29,7 +34,11 @@ func main() {
 
 	// loop through servers
 	for _, server := range servers {
-		checkServer(server)
+		// implementing goroutine
+		go checkServer(server, ch)
+
+		// receiving data from channel
+		fmt.Println(<-ch)
 	}
 	finish := time.Since(start)
 	fmt.Printf("Time taken: %s", finish)

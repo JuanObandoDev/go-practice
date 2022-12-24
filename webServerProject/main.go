@@ -10,6 +10,9 @@ func main() {
 	// add route and handler function
 	server.Handle("GET", "/api", server.AddMiddleware(HandleHome, CheckAuth(), Login()))
 
+	// add route and handler function
+	server.Handle("POST", "/create", PostRequest)
+
 	// server listening
 	server.Listener()
 }

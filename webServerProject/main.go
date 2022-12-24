@@ -13,6 +13,9 @@ func main() {
 	// add route and handler function
 	server.Handle("POST", "/create", PostRequest)
 
+	// add route and handler function
+	server.Handle("POST", "/user", UserPostRequest)
+
 	// server listening
 	server.Listener()
 }
